@@ -1,0 +1,191 @@
+A stored function in MySQL is a set of SQL statements that perform a specific task and are stored within the MySQL server. These functions can accept parameters, perform calculations, and return a single value. They are similar to stored procedures but are used to return a single value rather than a result set.
+
+show function status where db = "python8to9PM" ;
+
+CREATE FUNCTION function_name ([parameters])
+RETURNS data_type
+BEGIN
+    -- SQL statements
+    RETURN value;
+END;
+
+CREATE FUNCTION: This statement is used to create a new stored function in the database.
+
+function_name: This is the name of the function you want to create.
+
+([parameters]): This is an optional list of parameters that the function can accept. Parameters are separated by commas.
+
+RETURNS data_type: This specifies the data type that the function will return.
+
+BEGIN ... END: This is the block of SQL statements that make up the body of the function. This is where you define what the function does.
+
+RETURN value;: This statement is used to return a value from the function.
+
+
+Example:
+delimiter //
+CREATE FUNCTION add_numbers (num1 INT, num2 INT)
+RETURNS INT DETERMINISTIC
+BEGIN
+    DECLARE sum INT;
+    SET sum = num1 + num2;
+    RETURN sum;
+END//
+delimiter ;
+
+SELECT add_numbers(5, 10); -- Output: 15
+
+
+delimiter &&
+CREATE FUNCTION sub_numbers (num1 INT, num2 INT)
+RETURNS INT DETERMINISTIC
+BEGIN
+    DECLARE sub INT;
+    SET sub = num1 - num2;
+    RETURN sub;
+END &&
+delimiter ;
+
+
+
+
+
+
+
+delimiter //
+CREATE FUNCTION   SimpleInterst (amount INT, rate INT, time INT)
+RETURNS INT DETERMINISTIC
+BEGIN
+    DECLARE si INT;
+    SET si = amount * rate*time/100;
+    RETURN si;
+END//
+delimiter ;
+
+===============================================
+delimiter //
+CREATE FUNCTION  sumvalue (value decimal(10,2))
+RETURNS decimal(10,2) DETERMINISTIC
+BEGIN
+        
+    RETURN sum(value);
+END//
+delimiter ;
+
+
+
+
+
+
+
+
+2. Convert Temperature from Celsius to Fahrenheit
+CREATE FUNCTION celsius_to_fahrenheit(celsius FLOAT)
+RETURNS FLOAT
+BEGIN
+    DECLARE fahrenheit FLOAT;
+    SET fahrenheit = (celsius * 9 / 5) + 32;
+    RETURN fahrenheit;
+END;
+
+
+
+Calculate Area of a Circle
+CREATE FUNCTION calculate_circle_area(radius FLOAT)
+RETURNS FLOAT
+BEGIN
+    DECLARE area FLOAT;
+    SET area = PI() * POW(radius, 2);
+    RETURN area;
+END;
+
+
+Check if a Number is Even
+
+CREATE FUNCTION is_even(number INT)
+RETURNS INT
+BEGIN
+    DECLARE result INT;
+    IF number % 2 = 0 THEN
+        SET result = 1;
+    ELSE
+        SET result = 0;
+    END IF;
+    RETURN result;
+END;
+
+	
+
+ Get Age Category
+CREATE FUNCTION get_age_category(age INT)
+RETURNS VARCHAR(20)
+BEGIN
+    DECLARE category VARCHAR(20);
+    IF age < 18 THEN
+        SET category = 'Minor';
+    ELSEIF age >= 18 AND age < 65 THEN
+        SET category = 'Adult';
+    ELSE
+        SET category = 'Senior';
+    END IF;
+    RETURN category;
+END;
+
+
+CREATE TABLE Persons (
+    PersonID INT AUTO_INCREMENT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    Age INT
+);
+
+
+CREATE TABLE Temperatures (
+    TemperatureID INT AUTO_INCREMENT PRIMARY KEY,
+    Celsius FLOAT,
+    Fahrenheit FLOAT
+);
+
+
+CREATE TABLE Circles (
+    CircleID INT AUTO_INCREMENT PRIMARY KEY,
+    Radius FLOAT,
+    Area FLOAT
+);
+
+
+CREATE TABLE Numbers (
+    NumberID INT AUTO_INCREMENT PRIMARY KEY,
+    Number INT
+);
+
+
+
+INSERT INTO Persons (FirstName, LastName, Age) VALUES
+('John', 'Doe', 25),
+('Jane', 'Smith', 30),
+('Michael', 'Johnson', 40),
+('Emily', 'Brown', 17);
+
+
+INSERT INTO Temperatures (Celsius) VALUES
+(0),
+(25),
+(100);
+select  Celsius , celsius_to_fahrenheit(Celsius) as" Fahrnht" from Temperatures;
+
+INSERT INTO Circles (Radius) VALUES
+(5),
+(10),
+(15);
+
+
+INSERT INTO Numbers (Number) VALUES
+(3),
+(8),
+(12),
+(20);
+
+
+
+
